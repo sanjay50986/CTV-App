@@ -1,0 +1,11 @@
+{
+  "name": "com.domain.app.CTVApp",
+  "description": "CTV App",
+  "scripts": {
+    "dev": "lng dev",
+    "build": "lng build"
+  },
+  "dependencies": {
+    "@lightningjs/sdk": "^5.3.1"
+  }
+}

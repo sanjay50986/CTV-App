@@ -35,7 +35,7 @@ This is a simple Connected TV (CTV) app built using LightningJS (L2) as part of 
 Clone the repo or download the ZIP:
 
 
-git clone https://github.com/your-username/lightningjs-ctv-app.git
+git clone https://github.com/sanjay50986/CTV-App.git
 cd lightningjs-ctv-app
 Install dependencies (if using a package manager like npm or yarn):
 
