@@ -11,6 +11,6 @@ export default {
     {
       path: 'details',
       component: Details
-    }
+    },
   ]
 }

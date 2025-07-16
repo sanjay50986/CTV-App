@@ -6,6 +6,7 @@
     "build": "lng build"
   },
   "dependencies": {
-    "@lightningjs/sdk": "^5.3.1"
+    "@lightningjs/sdk": "^5.3.1",
+    "@lightningjs/ui-components": "^2.25.1"
   }
 }

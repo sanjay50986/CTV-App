@@ -1,5 +1,5 @@
 import { Lightning, Utils, Router } from "@lightningjs/sdk"
-import Thumbnail from '../components/Thumbnail'
+import { ProgressBar, Tile } from "@lightningjs/ui-components";
 
 export default class Home extends Lightning.Component {
 
@@ -7,29 +7,52 @@ export default class Home extends Lightning.Component {
         return {
             rect: true,
             w: 1920, h: 1080,
-            color: 0xff222222,
+            colorTop: 0xff141e30,
+            colorBottom: 0xff243b55,
+
+            Overlay: {
+                rect: true,
+                w: 1920,
+                h: 1080,
+                colorTop: 0xaa000000,
+                colorBottom: 0x00000000
+            },
 
             AppTitle: {
                 x: 60, y: 40,
                 text: {
-                    text: 'My CTV App',
-                    fontSize: 20
+                    text: '🎬 My CTV App',
+                    fontSize: 40,
+                    fontFace: 'Bold',
+                    textColor: 0xffffffff,
+                    shadow: true,
+                    shadowColor: 0xff000000
                 }
             },
 
+
             Thumbnails: {
                 x: 60,
-                y: 120,
+                y: 250,
                 w: 1800,
                 flex: {
                     direction: "row",
-                    wrap: false,
-                    justifyContent: 'space-between',
+                    wrap: true,
+                    justifyContent: 'space-around',
                     alignItems: 'center'
                 },
                 children: []
             },
 
+            Footer: {
+                x: 80,
+                y: 1000,
+                text: {
+                    text: 'Powered by LightningJS',
+                    fontSize: 20,
+                    textColor: 0xffcccccc
+                }
+            }
         }
     }
 
@@ -48,9 +71,23 @@ export default class Home extends Lightning.Component {
             const data = await res.json()
 
             const thumbnails = data.map((movie) => ({
-                type: Thumbnail,
-                label: movie.title,
-                img: movie.img,
+                y: 200,
+                type: Tile,
+                artwork: {
+                    src: movie.img,
+                    w: 350,
+                    h: 250,
+                    ProgressBar: {
+                        type: ProgressBar,
+                        w: 300,
+                        progress: 0.5,
+                        y: 220
+                    }
+                },
+
+                metadata: {
+                    title: movie.title,
+                },
             }));
 
             this._movies = data
@@ -82,8 +119,8 @@ export default class Home extends Lightning.Component {
     }
 
     _handleEnter() {
-       const selectedMovie = this._movies[this._index];
-       Router.navigate('details', selectedMovie)
+        const selectedMovie = this._movies[this._index];
+        Router.navigate('details', selectedMovie)
     }
 
 

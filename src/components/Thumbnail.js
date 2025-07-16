@@ -21,7 +21,6 @@ export default class Thumbnail extends Lightning.Component {
                 alpha: 0,
                 shader: { radius: 20 }
             },
-
         }
     }
 
