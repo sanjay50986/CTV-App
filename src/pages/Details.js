@@ -102,18 +102,74 @@ export default class Details extends Lightning.Component {
                 x: 100,
                 y: 440,
                 type: Button,
-                title: '▶ Watch Now',   
+                title: '▶ Watch Now',
                 fixed: true,
-                w: 300,
-                h: 80,
+                w: 260,
+                h: 60,
                 justify: 'center',
-                fontSize: 25,   
-                backgroundColor: 0xffe50914,  
-                radius: 20
+                fontSize: 20,
+                backgroundColor: 0xffe50914, 
+                radius: 20,
+                transitions: {
+                    scale: { duration: 0.3, timingFunction: 'ease-in-out' }
+                }
             },
+
+            InfoButton: {
+                x: 420,
+                y: 440,
+                type: Button,
+                title: 'ℹ Info',
+                fixed: true,
+                w: 240,
+                h: 60,
+                justify: 'center',
+                fontSize: 20,
+                backgroundColor: 0xffe50914, 
+                radius: 20,
+                transitions: {
+                    scale: { duration: 0.3, timingFunction: 'ease-in-out' }
+                }
+            }
 
         };
     }
+
+    _init() {
+        this._buttons = [this.tag("WatchButton"), this.tag("InfoButton")];
+        this._index = 0;
+        this._updateFocus();
+    }
+
+
+    _getFocused() {
+        return this._buttons[this._index];
+    }
+
+    _handleRight() {
+        if (this._index < this._buttons.length - 1) {
+            this._unfocusButton(this._index);
+            this._index++;
+            this._updateFocus();
+        }
+    }
+
+    _handleLeft() {
+        if (this._index > 0) {
+            this._unfocusButton(this._index);
+            this._index--;
+            this._updateFocus();
+        }
+    }
+
+    _updateFocus() {
+        this._buttons[this._index].patch({ scale: 1.1 });
+    }
+
+    _unfocusButton(index) {
+        this._buttons[index].patch({ scale: 1.0 });
+    }
+
 
     set params(selectedMovie) {
         this.tag('Title').text.text = selectedMovie?.title || 'No Title';

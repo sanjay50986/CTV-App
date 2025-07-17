@@ -1,5 +1,6 @@
 import { Lightning, Utils, Router } from "@lightningjs/sdk"
-import { ProgressBar, Tile } from "@lightningjs/ui-components";
+import { ProgressBar, Tile, } from "@lightningjs/ui-components";
+
 
 export default class Home extends Lightning.Component {
 
@@ -32,17 +33,19 @@ export default class Home extends Lightning.Component {
 
 
             Thumbnails: {
-                x: 60,
-                y: 250,
+                x: 100,
+                y: 200,
                 w: 1800,
                 flex: {
                     direction: "row",
                     wrap: true,
-                    justifyContent: 'space-around',
-                    alignItems: 'center'
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start"
                 },
+                marging: 20,
                 children: []
             },
+
 
             Footer: {
                 x: 80,
@@ -71,8 +74,10 @@ export default class Home extends Lightning.Component {
             const data = await res.json()
 
             const thumbnails = data.map((movie) => ({
-                y: 200,
                 type: Tile,
+                w: 400,
+                h: 250,
+                margin: 20,
                 artwork: {
                     src: movie.img,
                     w: 350,
@@ -117,6 +122,8 @@ export default class Home extends Lightning.Component {
 
         }
     }
+
+
 
     _handleEnter() {
         const selectedMovie = this._movies[this._index];

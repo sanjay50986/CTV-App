@@ -3,7 +3,7 @@
  * SDK version: 5.5.5
  * CLI version: 2.14.2
  * 
- * Generated: Wed, 16 Jul 2025 10:14:22 GMT
+ * Generated: Thu, 17 Jul 2025 11:12:32 GMT
  */
 
 var APP_com_domain_app_CTVApp = (function () {
@@ -16129,15 +16129,16 @@ var APP_com_domain_app_CTVApp = (function () {
           }
         },
         Thumbnails: {
-          x: 60,
-          y: 250,
+          x: 100,
+          y: 200,
           w: 1800,
           flex: {
             direction: "row",
             wrap: true,
-            justifyContent: 'space-around',
-            alignItems: 'center'
+            justifyContent: "flex-start",
+            alignItems: "flex-start"
           },
+          marging: 20,
           children: []
         },
         Footer: {
@@ -16160,8 +16161,10 @@ var APP_com_domain_app_CTVApp = (function () {
         const res = await fetch(url);
         const data = await res.json();
         const thumbnails = data.map(movie => ({
-          y: 200,
           type: Tile,
+          w: 400,
+          h: 250,
+          margin: 20,
           artwork: {
             src: movie.img,
             w: 350,
@@ -16299,14 +16302,71 @@ var APP_com_domain_app_CTVApp = (function () {
           type: Button,
           title: '▶ Watch Now',
           fixed: true,
-          w: 300,
-          h: 80,
+          w: 260,
+          h: 60,
           justify: 'center',
-          fontSize: 25,
+          fontSize: 20,
           backgroundColor: 0xffe50914,
-          radius: 20
+          radius: 20,
+          transitions: {
+            scale: {
+              duration: 0.3,
+              timingFunction: 'ease-in-out'
+            }
+          }
+        },
+        InfoButton: {
+          x: 420,
+          y: 440,
+          type: Button,
+          title: 'ℹ Info',
+          fixed: true,
+          w: 240,
+          h: 60,
+          justify: 'center',
+          fontSize: 20,
+          backgroundColor: 0xffe50914,
+          radius: 20,
+          transitions: {
+            scale: {
+              duration: 0.3,
+              timingFunction: 'ease-in-out'
+            }
+          }
         }
       };
+    }
+    _init() {
+      this._buttons = [this.tag("WatchButton"), this.tag("InfoButton")];
+      this._index = 0;
+      this._updateFocus();
+    }
+    _getFocused() {
+      return this._buttons[this._index];
+    }
+    _handleRight() {
+      if (this._index < this._buttons.length - 1) {
+        this._unfocusButton(this._index);
+        this._index++;
+        this._updateFocus();
+      }
+    }
+    _handleLeft() {
+      if (this._index > 0) {
+        this._unfocusButton(this._index);
+        this._index--;
+        this._updateFocus();
+      }
+    }
+    _updateFocus() {
+      this._buttons[this._index].patch({
+        scale: 1.1
+      });
+    }
+    _unfocusButton(index) {
+      this._buttons[index].patch({
+        scale: 1.0
+      });
     }
     set params(selectedMovie) {
       this.tag('Title').text.text = (selectedMovie === null || selectedMovie === void 0 ? void 0 : selectedMovie.title) || 'No Title';
